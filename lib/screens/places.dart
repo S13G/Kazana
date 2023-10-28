@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kazana/screens/add_place.dart';
 import 'package:kazana/widgets/places_list.dart';
 
 class PlacesScreen extends StatelessWidget {
@@ -11,12 +12,18 @@ class PlacesScreen extends StatelessWidget {
         title: const Text('Your Places'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const AddPlaceScreen(),
+                ),
+              );
+            },
             icon: const Icon(Icons.add),
           )
         ],
       ),
-      body: PlacesList(places: []),
+      body: const PlacesList(places: []),
     );
   }
 }
