@@ -5,8 +5,9 @@ import 'package:kazana/screens/map.dart';
 class PlaceDetailScreen extends StatelessWidget {
   const PlaceDetailScreen({super.key, required this.place});
 
-  final Place place;
+  final Place place; // The place object to display.
 
+  // Constructs the URL for a static map image using place's latitude and longitude.
   String get locationImage {
     final lat = place.location.latitude;
     final long = place.location.longitude;
@@ -22,7 +23,7 @@ class PlaceDetailScreen extends StatelessWidget {
       body: Stack(
         children: [
           Image.file(
-            place.image,
+            place.image, // Display the image of the place.
             fit: BoxFit.cover,
             height: double.infinity,
             width: double.infinity,
@@ -35,16 +36,17 @@ class PlaceDetailScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
+                    // Navigate to the MapScreen when the user taps on the map.
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => MapScreen(
-                          location: place.location, isSelecting: false
-                        ),
+                            location: place.location, isSelecting: false),
                       ),
                     );
                   },
                   child: CircleAvatar(
                     radius: 70,
+                    // Display a map image as a CircleAvatar.
                     backgroundImage: NetworkImage(locationImage),
                   ),
                 ),
@@ -65,7 +67,7 @@ class PlaceDetailScreen extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    place.location.address,
+                    place.location.address, // Display the place's address.
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Theme.of(context).colorScheme.onBackground,

@@ -34,6 +34,7 @@ class _LocationInput extends State<LocationInput> {
   }
 
   Future<void> _savePlace(double latitude, double longtitude) async {
+    // Get the address for the provided latitude and longitude
     final url = Uri.parse(
         'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longtitude&key=YOUR_API_KEY');
 
@@ -52,10 +53,12 @@ class _LocationInput extends State<LocationInput> {
       _isGettingLocation = false;
     });
 
+    // Pass the selected location back to the parent widget
     widget.onSelectLocation(_pickedLocation!);
   }
 
   void _getCurrentLocation() async {
+    // Get the current device location
     Location location = Location();
 
     bool serviceEnabled;
@@ -94,6 +97,7 @@ class _LocationInput extends State<LocationInput> {
   }
 
   void _selectOnMap() async {
+    // Open a map screen to select a location
     final pickedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
         builder: (context) => const MapScreen(),
@@ -109,17 +113,13 @@ class _LocationInput extends State<LocationInput> {
 
   @override
   Widget build(BuildContext context) {
+    // Define the UI for selecting and displaying location
     Widget previewContent = Text(
       'No location chosen',
       textAlign: TextAlign.center,
-      style: Theme
-          .of(context)
-          .textTheme
-          .bodyLarge!
-          .copyWith(color: Theme
-          .of(context)
-          .colorScheme
-          .onBackground),
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+        color: Theme.of(context).colorScheme.onBackground,
+      ),
     );
 
     if (_pickedLocation != null) {
@@ -141,8 +141,7 @@ class _LocationInput extends State<LocationInput> {
           decoration: BoxDecoration(
             border: Border.all(
               width: 1,
-              color: Theme
-                  .of(context)
+              color: Theme.of(context)
                   .colorScheme
                   .primary
                   .withOpacity(0.2),

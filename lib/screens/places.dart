@@ -14,22 +14,25 @@ class PlacesScreen extends ConsumerStatefulWidget {
 }
 
 class _PlacesScreen extends ConsumerState<PlacesScreen> {
-  late Future<void> _placesFuture;
+  late Future<void> _placesFuture; // Initialize a future for loading user places
 
   @override
   void initState() {
     super.initState();
+
+    // Load user places when the screen is initialized
     _placesFuture = ref.read(userPlacesProvider.notifier).loadPlaces();
   }
 
   @override
   Widget build(BuildContext context) {
-    final userPlaces = ref.watch(userPlacesProvider);
+    final userPlaces = ref.watch(userPlacesProvider); // Read user places from the provider
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Places'),
         actions: [
+          // Add button to navigate to the AddPlaceScreen
           IconButton(
             onPressed: () {
               Navigator.of(context).push(
@@ -47,11 +50,11 @@ class _PlacesScreen extends ConsumerState<PlacesScreen> {
         child: FutureBuilder(
           future: _placesFuture,
           builder: (context, snapshot) =>
-              snapshot.connectionState == ConnectionState.waiting
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : PlacesList(places: userPlaces),
+          snapshot.connectionState == ConnectionState.waiting
+              ? const Center(
+            child: CircularProgressIndicator(),
+          )
+              : PlacesList(places: userPlaces), // Display user places using PlacesList widget
         ),
       ),
     );
